@@ -1,0 +1,41 @@
+.TH COMPUTER-MCP-BACKEND 1 "September 2026" "computer-mcp-backend 1.0.0" "User Commands"
+.SH NAME
+computer-mcp-backend \- Linux VM guest MCP runtime
+.SH SYNOPSIS
+.B node dist/index.js
+.SH DESCRIPTION
+Runs the MCP server inside a Linux VM. It performs X11 desktop control, shell/filesystem operations, and Selenium browser automation. The host-side SSH proxy is maintained separately in Computer-MCP.
+.SH REQUIREMENTS
+Use Node.js 20 or newer, a logged-in X11 session, Firefox, ffmpeg, xdotool, xclip, xrandr, Git, curl, and build tools. Wayland is detected but direct GUI capture and input are not implemented.
+.SH INSTALLATION
+On Debian or Ubuntu:
+.EX
+sudo apt update
+sudo apt install ffmpeg xdotool xclip x11-xserver-utils git curl build-essential nodejs npm firefox-esr
+npm ci
+npm run build
+.EE
+The setup-vm.sh helper installs the exact APT packages, performs build/tests/lint, and never creates or changes a VM. The test-vm.sh validator is non-destructive.
+.SH PACKAGES
+The exact APT packages are ffmpeg, xdotool, xclip, x11-xserver-utils, git, curl, build-essential, firefox-esr, nodejs, and npm. Equivalent manual commands are documented in README.md for Fedora/RHEL-like, Arch/Manjaro, openSUSE, and Alpine.
+.SH MCP TOOLS
+The runtime exposes desktop screenshot, mouse, keyboard, clipboard, monitor, shell/filesystem, and Selenium tools over MCP stdio. Use browser_start for visible or headless Selenium and computer_screenshot for the whole X11 desktop.
+.SH MCPO
+.EX
+mcpo --host 127.0.0.1 --port 8084 -- node /opt/computer-mcp-backend/dist/index.js
+.EE
+MCPO is installed separately. The host-side Computer-MCP repository can forward MCP stdio to this command over SSH.
+.SH VALIDATION
+.EX
+./scripts/test-vm.sh
+npm run build
+npm test
+npm run lint
+.EE
+The validator checks the X11 display, commands, browser, monitors, FFmpeg capture, build, tests, and MCP discovery without changing input or clipboard state.
+.SH SECURITY
+The VM is the execution boundary. Do not mount host filesystems, expose the host Docker socket, copy host credentials or browser profiles, or disable SSH host-key verification. No host command, host filesystem, hypervisor, or VM escape facility is implemented.
+.SH LIMITATIONS
+The GUI path targets X11. Selenium driver/browser resolution depends on the installed browser, Selenium Manager, and VM network. The runtime must execute on Linux.
+.SH LICENSE
+GPL-3.0-only. No warranty is provided.

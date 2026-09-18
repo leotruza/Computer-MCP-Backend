@@ -1,0 +1,45 @@
+{
+  "name": "computer-mcp-backend",
+  "version": "1.0.0",
+  "description": "Linux VM guest MCP runtime for GUI, shell, filesystem, and Selenium control.",
+  "type": "module",
+  "bin": {
+    "computer-mcp-backend": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "node --test --import tsx test/**/*.test.ts",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "benchmark:browsers": "node scripts/benchmark-browsers.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leotruza/Computer-MCP-Backend.git"
+  },
+  "license": "GPL-3.0-only",
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "linux",
+    "x11",
+    "gui",
+    "computer-use",
+    "selenium",
+    "computer-use"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "selenium-webdriver": "^4.34.0",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "@types/selenium-webdriver": "^4.35.7",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
