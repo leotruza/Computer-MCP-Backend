@@ -13,7 +13,7 @@ sudo apt update
 sudo apt install ffmpeg xdotool xclip x11-xserver-utils git curl build-essential nodejs npm firefox-esr
 ```
 
-The included `scripts/setup-vm.sh` installs exactly those APT packages, runs the project checks, and never creates or modifies a VM. For Fedora/RHEL-like, Arch/Manjaro, openSUSE, and Alpine package equivalents, see the package table in this README and the man page.
+The included `scripts/setup-vm.sh` installs exactly those APT packages, runs the project checks, and never creates or modifies a VM. Run it as the graphical user, not with `sudo` for the whole script. If the checkout is under `/opt` and was created by root, the helper uses `sudo chown -R` on that project directory so the current user can create `node_modules` and `dist`; subsequent `npm ci`, build, tests, and MCPO execution run without sudo. For Fedora/RHEL-like, Arch/Manjaro, openSUSE, and Alpine package equivalents, see the package table in this README and the man page.
 
 | Distribution | Packages or command |
 |---|---|

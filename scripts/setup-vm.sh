@@ -90,6 +90,13 @@ fi
 
 if (( CHECK_ONLY == 0 && SKIP_BUILD == 0 )); then
   [[ -f "$PROJECT_DIR/package.json" ]] || die "No package.json found in $PROJECT_DIR. Use --project-dir with the project checkout."
+  [[ -d "$PROJECT_DIR" && -r "$PROJECT_DIR" ]] || die "Project directory is not readable: $PROJECT_DIR"
+  if [[ ! -w "$PROJECT_DIR" ]]; then
+    log "Project directory is not writable by $(id -un); fixing ownership with sudo: $PROJECT_DIR"
+    sudo -v || die "sudo authentication failed while fixing project ownership."
+    sudo chown -R "$(id -u):$(id -g)" "$PROJECT_DIR"
+  fi
+  [[ -w "$PROJECT_DIR" ]] || die "Project directory is still not writable: $PROJECT_DIR. Run: sudo chown -R $(id -un):$(id -gn) $PROJECT_DIR"
   log "Installing Node dependencies with npm ci."
   (cd "$PROJECT_DIR" && npm ci)
   log "Building and testing Computer-MCP."

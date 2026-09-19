@@ -15,7 +15,7 @@ sudo apt install ffmpeg xdotool xclip x11-xserver-utils git curl build-essential
 npm ci
 npm run build
 .EE
-The setup-vm.sh helper installs the exact APT packages, performs build/tests/lint, and never creates or changes a VM. The test-vm.sh validator is non-destructive.
+The setup-vm.sh helper installs the exact APT packages, performs build/tests/lint, and never creates or changes a VM. Run the helper as the graphical user, not with sudo for the whole script. If the checkout is root-owned, it uses sudo chown -R on that project directory so the user can create node_modules and dist. Do not use sudo npm. The test-vm.sh validator is non-destructive.
 .SH PACKAGES
 The exact APT packages are ffmpeg, xdotool, xclip, x11-xserver-utils, git, curl, build-essential, firefox-esr, nodejs, and npm. Equivalent manual commands are documented in README.md for Fedora/RHEL-like, Arch/Manjaro, openSUSE, and Alpine.
 .SH MCP TOOLS
