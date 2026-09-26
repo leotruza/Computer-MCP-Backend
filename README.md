@@ -61,4 +61,4 @@ The VM is the execution boundary. Do not mount host filesystems, expose the host
 
 ## License and AI notice
 
-GPL-3.0-only. This project was generated with assistance from artificial intelligence and may contain errors or vulnerabilities. Review, test, and audit it before security-sensitive or production use.
+This project was generated with assistance from artificial intelligence and may contain errors or vulnerabilities. Review, test, and audit it before security-sensitive or production use.
